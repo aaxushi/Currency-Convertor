@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter Using Javascript</title>
+    <style>
+        body
+        {
+            font-family: Arial, sans-serif;
+            background-color: #afcbd6;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 
+        {
+            background-color: #4c4b86;
+            color:white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .formstyle 
+        {
+            width: 350px;
+            margin: auto;
+            margin-top: 80px;
+            border: 3px solid #7a5c88;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        select, input[type="button"] 
+        {
+            width: calc(100% - 10px);
+            padding: 10px;  
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input[type="text"] 
+        {
+            width: calc(100% - 35px);
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input[type="button"] 
+        {
+            background-color: #333b6d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover 
+        {
+            background-color: #333b6d;
+        }
+
+        footer
+        {
+            margin-top: 110px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Currency Converter Using Javascript</h1>
+    <div class="formstyle">
+        <form name="form1">
+            <input id="calc" type="text" name="answer" placeholder="Enter amount"> <br> <br>
+
+            <select id="toCurrency">
+                <option value="INR">INR (Indian Rupee)</option>
+                <option value="USD">USD (United States Dollar)</option>
+                <option value="CAD">CAD (Canadian Dollar)</option>
+                <option value="JPY">JPY (Japanese Yen)</option>
+                <option value="LKR">LKR (Sri Lankan Rupee)</option>
+                <option value="MXN">MXN (Mexican Peso)</option>
+                <option value="AUD">AUD (Australian Dollar)</option>
+                <option value="NZD">NZD (New Zealand Dollar)</option>
+                <option value="AED">AED (Emirati Dirham)</option>
+                <option value="CNY">CNY (Chinese Yuan)</option>
+            </select>
+
+
+            <select id="fromCurrency">
+                <option value="INR">INR (Indian Rupee)</option>
+                <option value="USD">USD (United States Dollar)</option>
+                <option value="CAD">CAD (Canadian Dollar)</option>
+                <option value="JPY">JPY (Japanese Yen)</option>
+                <option value="LKR">LKR (Sri Lankan Rupee)</option>
+                <option value="MXN">MXN (Mexican Peso)</option>
+                <option value="AUD">AUD (Australian Dollar)</option>
+                <option value="NZD">NZD (New Zealand Dollar)</option>
+                <option value="AED">AED (Emirati Dirham)</option>
+                <option value="CNY">CNY (Chinese Yuan)</option>
+            </select>
+            <br><br>
+            <input type="button" value="Convert" onclick="convertCurrency()">
+            <input type="button" value="Clear Amount" onclick="form1.answer.value = ''" id="clear">
+            <br>
+        </form>
+    </div>
+    <footer>
+    <h1 style="text-align: right;background-color: #4c4b86;">Designed by Aayushi Baijal 22BCT0222</h1>
+    </footer><br><br>
+
+    <script>
+        function convertCurrency() 
+        {
+            var amount = parseFloat(document.form1.answer.value);
+            var fromCurrency = document.getElementById("fromCurrency").value;
+            var toCurrency = document.getElementById("toCurrency").value;
+
+            // Exchange rates
+            var exchangeRates = 
+            {
+                'USD': 82.95,
+                'CAD': 61.32,
+                'JPY': 0.55,
+                'LKR': 0.27,
+                'MXN': 4.86,
+                'AUD': 54.34,
+                'NZD': 51.27,
+                'AED': 22.58,
+                'CNY': 11.53
+            };
+
+            var result;
+
+            if (fromCurrency === 'INR') 
+            {
+                if (toCurrency === 'INR') 
+                {
+                    result = amount; // No conversion needed
+                } 
+                else 
+                {
+                    result = amount * exchangeRates[toCurrency]; //INR to another currency
+                }
+            }
+            else if (toCurrency === 'INR') 
+            {
+                    result = amount / exchangeRates[fromCurrency];// Convert to INR from another currency
+            } 
+            else 
+            {
+                    result = amount * (exchangeRates[toCurrency] / exchangeRates[fromCurrency]);// Convert between two non-INR currencies
+            }
+            document.form1.answer.value = result.toFixed(2);
+        }
+    </script>
+</body>
+</html>
